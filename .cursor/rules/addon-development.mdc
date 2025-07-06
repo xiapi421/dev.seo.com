@@ -1,0 +1,105 @@
+# FastAdmin插件开发规范
+
+## 插件目录结构
+
+每个插件都应该有以下标准结构：
+
+```
+addons/example/
+├── Example.php          # 插件主类
+├── config.php          # 插件配置
+├── info.ini            # 插件信息
+├── install.sql         # 安装SQL
+├── controller/         # 控制器目录
+├── model/             # 模型目录
+├── view/              # 视图目录
+├── lang/              # 语言包目录
+└── public/            # 静态资源目录
+```
+
+## 插件主类结构
+
+```php
+<?php
+namespace addons\example;
+
+use think\Addons;
+
+class Example extends Addons
+{
+    // 插件信息
+    public $info = [
+        'name' => 'example',
+        'title' => '示例插件',
+        'description' => '这是一个示例插件',
+        'status' => 1,
+        'author' => 'FastAdmin',
+        'version' => '1.0.0'
+    ];
+    
+    // 插件安装方法
+    public function install()
+    {
+        return true;
+    }
+    
+    // 插件卸载方法
+    public function uninstall()
+    {
+        return true;
+    }
+    
+    // 插件启用方法
+    public function enable()
+    {
+        return true;
+    }
+    
+    // 插件禁用方法
+    public function disable()
+    {
+        return true;
+    }
+}
+```
+
+## 配置文件格式
+
+**info.ini**
+```ini
+name = example
+title = 示例插件
+intro = 这是一个示例插件
+author = FastAdmin
+website = https://www.fastadmin.net
+version = 1.0.0
+state = 1
+```
+
+## 钩子使用
+
+- 使用`Hook::listen()`监听钩子
+- 在插件类中定义钩子方法
+- 钩子方法名对应钩子名称
+
+## 数据库操作
+
+- 使用ThinkPHP的数据库操作
+- 表前缀使用`config('database.prefix')`
+- 安装时创建表，卸载时删除表
+
+## 路由规则
+
+- 插件路由格式：`/addons/插件名/控制器/方法`
+- 在插件配置中定义路由规则
+- 支持自定义路由规则
+
+## 静态资源
+
+- CSS和JS文件放在`public`目录
+- 使用`addon_url()`函数生成资源URL
+- 支持资源版本控制
+description:
+globs:
+alwaysApply: false
+---

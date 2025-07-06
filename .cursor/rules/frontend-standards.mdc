@@ -1,0 +1,63 @@
+# 前端代码规范
+
+## JavaScript规范
+
+- 使用2个空格缩进
+- 使用RequireJS模块化加载
+- 遵循AMD规范定义模块
+- 使用jQuery操作DOM
+- 使用Bootstrap响应式布局
+
+### 模块定义示例
+
+```javascript
+define(['jquery', 'bootstrap'], function ($, Bootstrap) {
+    var Controller = {
+        index: function () {
+            // 初始化代码
+        }
+    };
+    return Controller;
+});
+```
+
+## CSS/Less规范
+
+- 使用2个空格缩进
+- 类名使用kebab-case命名
+- 基于Bootstrap进行样式开发
+- 使用Less变量和混合
+- 移动优先的响应式设计
+
+### 样式组织
+
+```less
+// 变量定义
+@primary-color: #007bff;
+@border-radius: 4px;
+
+// 基础样式
+.btn-custom {
+    background-color: @primary-color;
+    border-radius: @border-radius;
+}
+```
+
+## HTML规范
+
+- 使用HTML5语义化标签
+- 保持良好的标签嵌套
+- 使用Bootstrap网格系统
+- 表单使用合适的输入类型
+- 图片要有alt属性
+
+## AdminLTE组件使用
+
+- 使用AdminLTE的盒子组件
+- 遵循AdminLTE的颜色规范
+- 使用AdminLTE的图标字体
+- 保持界面风格一致性
+description:
+globs:
+alwaysApply: false
+---

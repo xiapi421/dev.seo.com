@@ -1,0 +1,46 @@
+# PHP编码规范
+
+## 基本规范
+
+- 使用4个空格缩进，不使用Tab
+- 行尾不要有多余空格
+- 文件末尾保留一个空行
+- PHP标签使用完整的`<?php`，不使用短标签
+- 类名使用PascalCase命名
+- 方法名和变量名使用camelCase命名
+- 常量名使用UPPER_CASE命名
+
+## ThinkPHP特定规范
+
+- 控制器继承自`\think\Controller`或`\app\common\controller\Backend`
+- 模型继承自`\think\Model`
+- 使用ThinkPHP的数据库操作方法
+- 使用`input()`函数获取请求参数
+- 使用`json()`或`view()`返回响应
+
+## 文档注释
+
+```php
+/**
+ * 方法描述
+ * @param string $param 参数说明
+ * @return array 返回值说明
+ */
+```
+
+## 异常处理
+
+- 使用try-catch处理异常
+- 自定义异常继承自`\think\Exception`
+- 记录日志使用`\think\Log::record()`
+
+## 安全规范
+
+- 所有用户输入都要验证和过滤
+- 使用参数绑定防止SQL注入
+- 敏感操作要验证权限
+- 使用CSRF令牌防护
+description:
+globs:
+alwaysApply: false
+---

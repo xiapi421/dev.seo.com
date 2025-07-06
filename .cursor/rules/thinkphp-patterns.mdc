@@ -1,0 +1,125 @@
+# ThinkPHP开发模式
+
+## 控制器模式
+
+### 后台控制器结构
+
+```php
+<?php
+namespace app\admin\controller;
+
+use app\common\controller\Backend;
+
+class Example extends Backend
+{
+    protected $model = null;
+    protected $searchFields = 'id,name';
+    
+    public function _initialize()
+    {
+        parent::_initialize();
+        $this->model = new \app\admin\model\Example;
+    }
+    
+    public function index()
+    {
+        if ($this->request->isAjax()) {
+            // AJAX请求处理
+            return $this->model->paginate();
+        }
+        return $this->view->fetch();
+    }
+}
+```
+
+### API控制器结构
+
+```php
+<?php
+namespace app\api\controller;
+
+use app\common\controller\Api;
+
+class Example extends Api
+{
+    protected $noNeedLogin = [];
+    protected $noNeedRight = [];
+    
+    public function index()
+    {
+        $this->success('成功', $data);
+    }
+}
+```
+
+## 模型模式
+
+### 模型定义
+
+```php
+<?php
+namespace app\admin\model;
+
+use think\Model;
+
+class Example extends Model
+{
+    protected $name = 'example';
+    protected $autoWriteTimestamp = 'int';
+    protected $createTime = 'createtime';
+    protected $updateTime = 'updatetime';
+    
+    // 关联定义
+    public function category()
+    {
+        return $this->belongsTo('Category');
+    }
+    
+    // 修改器
+    public function setStatusAttr($value)
+    {
+        return $value ? 1 : 0;
+    }
+    
+    // 获取器
+    public function getStatusTextAttr($value, $data)
+    {
+        return $data['status'] ? '启用' : '禁用';
+    }
+}
+```
+
+## 视图模式
+
+### 列表页面结构
+
+```html
+<div class="panel panel-default panel-intro">
+    <div class="panel-heading">
+        <div class="panel-lead">
+            <ul class="nav nav-tabs" data-field="status">
+                <li class="active"><a href="#t-all">全部</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="t-all">
+                <table id="table" class="table table-striped table-bordered table-hover">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+## 验证规则
+
+- 使用ThinkPHP验证器
+- 在模型中定义验证规则
+- 控制器中调用验证
+- 返回友好的错误信息
+description:
+globs:
+alwaysApply: false
+---

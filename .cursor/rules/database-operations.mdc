@@ -1,0 +1,111 @@
+# 数据库操作规范
+
+## 数据库配置
+
+- 数据库配置文件：**[database.php](mdc:application/database.php)**
+- 支持多数据库连接
+- 使用环境变量管理敏感信息
+
+## 查询构造器
+
+### 基本查询
+
+```php
+// 查询所有记录
+$users = Db::name('user')->select();
+
+// 查询单条记录
+$user = Db::name('user')->where('id', 1)->find();
+
+// 条件查询
+$users = Db::name('user')->where('status', 1)->select();
+```
+
+### 链式操作
+
+```php
+$result = Db::name('user')
+    ->where('status', 1)
+    ->where('create_time', '>', time() - 3600)
+    ->order('id desc')
+    ->limit(10)
+    ->select();
+```
+
+## 模型操作
+
+### 模型定义
+
+```php
+<?php
+namespace app\admin\model;
+
+use think\Model;
+
+class User extends Model
+{
+    protected $table = 'user';
+    protected $pk = 'id';
+    protected $autoWriteTimestamp = true;
+    
+    // 自动完成
+    protected $auto = ['status'];
+    protected $insert = ['create_time'];
+    protected $update = ['update_time'];
+}
+```
+
+### 模型使用
+
+```php
+// 实例化模型
+$user = new User();
+
+// 新增数据
+$user->name = 'test';
+$user->email = 'test@example.com';
+$user->save();
+
+// 查询数据
+$user = User::get(1);
+$users = User::all();
+
+// 更新数据
+$user = User::get(1);
+$user->name = 'new name';
+$user->save();
+
+// 删除数据
+User::destroy(1);
+```
+
+## 事务处理
+
+```php
+// 自动控制事务
+Db::transaction(function() {
+    Db::name('user')->insert(['name' => 'test1']);
+    Db::name('user')->insert(['name' => 'test2']);
+});
+
+// 手动控制事务
+Db::startTrans();
+try {
+    Db::name('user')->insert(['name' => 'test1']);
+    Db::name('user')->insert(['name' => 'test2']);
+    Db::commit();
+} catch (\Exception $e) {
+    Db::rollback();
+}
+```
+
+## 安全规范
+
+- 使用参数绑定防止SQL注入
+- 验证用户输入数据
+- 使用白名单过滤字段
+- 敏感操作记录日志
+description:
+globs:
+alwaysApply: false
+---

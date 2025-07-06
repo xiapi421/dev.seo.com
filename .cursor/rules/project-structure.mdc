@@ -1,0 +1,39 @@
+# FastAdmin项目结构指南
+
+这是一个基于ThinkPHP框架的FastAdmin后台管理系统项目。
+
+## 核心目录结构
+
+- **[application/](mdc:application/)** - 应用程序代码主目录
+  - **[admin/](mdc:application/admin/)** - 后台管理模块
+  - **[api/](mdc:application/api/)** - API接口模块
+  - **[index/](mdc:application/index/)** - 前台模块
+  - **[common/](mdc:application/common/)** - 公共模块
+  - **[config.php](mdc:application/config.php)** - 应用配置文件
+  - **[database.php](mdc:application/database.php)** - 数据库配置
+  - **[route.php](mdc:application/route.php)** - 路由配置
+
+- **[public/](mdc:public/)** - 公共资源目录（Web入口）
+- **[thinkphp/](mdc:thinkphp/)** - ThinkPHP框架核心
+- **[vendor/](mdc:vendor/)** - Composer依赖包
+- **[addons/](mdc:addons/)** - 插件目录
+- **[extend/](mdc:extend/)** - 扩展库目录
+- **[runtime/](mdc:runtime/)** - 运行时目录（缓存、日志等）
+
+## 配置文件
+
+- **[composer.json](mdc:composer.json)** - PHP依赖管理
+- **[package.json](mdc:package.json)** - Node.js依赖管理
+- **[Gruntfile.js](mdc:Gruntfile.js)** - 前端构建配置
+
+## 开发规范
+
+- 遵循ThinkPHP框架的MVC模式
+- 控制器在各模块的controller目录
+- 模型在各模块的model目录
+- 视图在各模块的view目录
+- 语言包在各模块的lang目录
+description:
+globs:
+alwaysApply: false
+---
